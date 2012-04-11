@@ -1,4 +1,11 @@
 module Instruments
+
+  HTTP_WARN = ENV["HTTP_WARN"] || 300
+  HTTP_ERROR = ENV["HTTP_ERROR"] || 1000
+
+  DB_WARN = ENV["DB_WARN"] || 300
+  DB_ERROR = ENV["DB_ERROR"] || 1000
+
   def self.defaults=(args)
     @logger = args[:logger] || Kernel
     @method = args[:method] || :puts
@@ -23,7 +30,15 @@ module Instruments
           end
           after do
             t = Integer((Time.now - @start_request)*1000)
+            level = if t > HTTP_ERROR
+              :error
+            elsif t > HTTP_WARN
+              :warn
+            else
+              :info
+            end
             Instruments.write({
+              :leve => level,
               :lib => "sinatra",
               :action => "http-request",
               :route => @instrumented_route,
@@ -56,7 +71,14 @@ module Instruments
         end
 
         def log_duration(t, sql)
-          Instruments.write(:info => true, :action => action(sql), :elapsed => t, :sql => sql)
+          level = if t > DB_ERROR
+            :error
+          elsif t > DB_WARN
+            :warn
+          else
+            :info
+          end
+          Instruments.write(:level => level, :action => action(sql), :elapsed => t, :sql => sql)
         end
 
         def log_exception(e, sql)
