@@ -38,7 +38,7 @@ module Instruments
               :info
             end
             Instruments.write({
-              :leve => level,
+              :level => level,
               :lib => "sinatra",
               :action => "http-request",
               :route => @instrumented_route,

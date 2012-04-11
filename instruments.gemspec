@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name          = "instruments"
   s.email         = "ryan@heroku.com"
-  s.version       = "0.0.2"
+  s.version       = "0.0.4"
   s.date          = "2012-04-07"
   s.description   = "instruments: sinatra, sequel."
   s.summary       = "instrument your code"
