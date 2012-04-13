@@ -7,6 +7,20 @@ activities. Instruments supports the following libraries:
 * sequel
 * excon
 
+## Installation
+
+Add this line to your application's Gemfile:
+
+gem 'instruments'
+
+And then execute:
+
+$ bundle
+
+Or install it yourself as:
+
+$ gem install instruments
+
 ## Usage
 
 Provide Instruments with an object (or module) and a method
@@ -107,3 +121,11 @@ lib=excon action=http-request elapsed=0
 * @mmcgrana
 * @nzoschke
 * @jeremyevans
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Added some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request

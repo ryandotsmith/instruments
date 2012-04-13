@@ -1,13 +1,18 @@
-Gem::Specification.new do |s|
-  s.name          = "instruments"
-  s.email         = "ryan@heroku.com"
-  s.version       = "0.0.4"
-  s.date          = "2012-04-07"
-  s.description   = "instruments: sinatra, sequel."
-  s.summary       = "instrument your code"
-  s.authors       = ["Ryan Smith (ace hacker)"]
-  s.homepage      = "http://github.com/ryandotsmith/instruments"
+# -*- encoding: utf-8 -*-
+require File.expand_path('../lib/instruments/version', __FILE__)
 
-  s.files = Dir["{lib}/**/*.rb"]
-  s.require_paths = %w[lib]
+Gem::Specification.new do |gem|
+  gem.authors       = ["Ryan Smith (ace hacker)"]
+  gem.email         = ["ryan@heroku.com"]
+  gem.description   = "Instruments for popular libraries"
+  gem.summary       = "Instrument your code"
+  gem.homepage      = "http://github.com/ryandotsmith/instruments"
+  gem.date          = "2012-04-07"
+
+  gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  gem.files         = `git ls-files`.split("\n")
+  gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  gem.name          = "instruments"
+  gem.require_paths = ["lib"]
+  gem.version       = Instruments::VERSION
 end
