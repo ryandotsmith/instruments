@@ -13,11 +13,11 @@ module Instruments
   end
 
   def self.logger
-    @logger || {}
+    @logger || Kernel
   end
 
   def self.method
-    @method || {}
+    @method || :puts
   end
 
   def self.default_data
