@@ -22,11 +22,12 @@ require "sinatra/base"
 require "instruments"
 Instruments.defaults = {
   :logger => Kernel,
-  :method => :puts
+  :method => :puts,
+  :default_data => {:app => "your-app-name"}
 }
 
 class API < Sinatra::Base
-  register Sinatra::Instruments
+  register Sinatra::Instrumentation
   instrument_routes
 
   get "/hello/:name" do

@@ -9,7 +9,7 @@ module Instruments
   def self.defaults=(args)
     @logger = args[:logger]
     @method = args[:method]
-    @default_data = args[:data]
+    @default_data = args[:default_data]
   end
 
   def self.logger
@@ -25,7 +25,7 @@ module Instruments
   end
 
   def self.write(data={})
-    logger.send(method, data.merge(default_data))
+    logger.send(method, default_data.merge(data))
   end
 
   if defined?(::Sinatra)
