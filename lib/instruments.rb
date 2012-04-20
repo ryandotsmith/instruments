@@ -7,13 +7,25 @@ module Instruments
   DB_ERROR = ENV["DB_ERROR"] || 1000
 
   def self.defaults=(args)
-    @logger = args[:logger] || Kernel
-    @method = args[:method] || :puts
-    @default_data = args[:data] || {}
+    @logger = args[:logger]
+    @method = args[:method]
+    @default_data = args[:data]
   end
 
-  def self.write(data)
-    @logger.send(@method, data.merge(@default_data))
+  def self.logger
+    @logger || {}
+  end
+
+  def self.method
+    @method || {}
+  end
+
+  def self.default_data
+    @default_data || {}
+  end
+
+  def self.write(data={})
+    logger.send(method, data.merge(default_data))
   end
 
   if defined?(::Sinatra)
