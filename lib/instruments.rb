@@ -45,7 +45,7 @@ module Instruments
             level = if t > HTTP_ERROR
               :error
             elsif t > HTTP_WARN
-              :warn
+              :warning
             else
               :info
             end
@@ -86,7 +86,7 @@ module Instruments
           level = if t > DB_ERROR
             :error
           elsif t > DB_WARN
-            :warn
+            :warning
           else
             :info
           end
