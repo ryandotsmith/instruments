@@ -122,4 +122,12 @@ module Instruments
     Excon.defaults[:instrumentor] = ::Excon::Instrumentation
   end
 
+  if defined?(::QC)
+    module ::QC
+      def self.log(data)
+        Instruments.write(data)
+      end
+    end
+  end
+
 end

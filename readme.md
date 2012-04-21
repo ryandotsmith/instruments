@@ -6,6 +6,7 @@ activities. Instruments supports the following libraries:
 * sinatra
 * sequel
 * excon
+* queue_classic
 
 ## Usage
 
@@ -94,7 +95,6 @@ lib=excon action=http-request elapsed=0
 ## TODO
 
 * rest-client
-* queue_classic
 * redis
 
 ## Links
