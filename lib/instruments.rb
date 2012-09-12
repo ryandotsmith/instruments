@@ -30,6 +30,14 @@ module Instruments
           super
         end
 
+        def instrumented_route
+          @instrumented_route.
+            gsub(/\/:\w+/,'').            #remove param names from path
+            gsub("/","-").                #remove slash from path
+            gsub(/[^A-Za-z0-9\-\_]/, ''). #only keep subset of chars
+            slice(1..-1)
+        end
+
         def instrument_routes
           before do
             @start_request = Time.now
@@ -39,7 +47,7 @@ module Instruments
             # request times
             Instruments.write({
               :lib => "sinatra",
-              :fn => @instrumented_route,
+              :fn => instrumented_route,
               :measure => true,
               :elapsed => t,
               :method => env["REQUEST_METHOD"].downcase,
