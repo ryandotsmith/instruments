@@ -39,7 +39,7 @@ module Instruments
             #cleanup route name
             instrumented_route = @instrumented_route.
                                     gsub("/","-").                #remove slash from path
-                                    gsub(/[^A-Za-z0-9.:-_]/, ''). #only keep subset of chars
+                                    gsub(/[^A-Za-z0-9.:\-_]/, ''). #only keep subset of chars
                                     gsub(/^-/,'')
 
             t = Integer((Time.now - @start_request)*1000)
