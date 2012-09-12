@@ -30,19 +30,19 @@ module Instruments
           super
         end
 
-        def instrumented_route
-          @instrumented_route.
-            gsub(/\/:\w+/,'').            #remove param names from path
-            gsub("/","-").                #remove slash from path
-            gsub(/[^A-Za-z0-9\-\_]/, ''). #only keep subset of chars
-            slice(1..-1)
-        end
 
         def instrument_routes
           before do
             @start_request = Time.now
           end
           after do
+            #cleanup route name
+            instrumented_route = @instrumented_route.
+                                    gsub(/\/:\w+/,'').            #remove param names from path
+                                    gsub("/","-").                #remove slash from path
+                                    gsub(/[^A-Za-z0-9\-\_]/, ''). #only keep subset of chars
+                                    slice(1..-1)
+
             t = Integer((Time.now - @start_request)*1000)
             # request times
             Instruments.write({
