@@ -47,7 +47,7 @@ module Instruments
             # request times
             Instruments.write({
               :lib => "sinatra",
-              :fn => instrumented_route,
+              :fn => instrumented_route.empty? ? 'index' : instrumented_route,
               :measure => true,
               :elapsed => t,
               :method => env["REQUEST_METHOD"].downcase,
