@@ -37,11 +37,7 @@ module Instruments
           end
           after do
             #cleanup route name
-            instrumented_route = @instrumented_route.
-                                    gsub(/\/:\w+/,'').            #remove param names from path
-                                    gsub("/","-").                #remove slash from path
-                                    gsub(/[^A-Za-z0-9\-\_]/, ''). #only keep subset of chars
-                                    slice(1..-1)
+            instrumented_route = @instrumented_route.gsub(/[^A-Za-z0-9\-\_]/, '')
 
             t = Integer((Time.now - @start_request)*1000)
             # request times
