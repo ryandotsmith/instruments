@@ -5,7 +5,6 @@ activities. Instruments supports the following libraries:
 
 * sinatra
 * sequel
-* excon
 
 ## Usage
 
