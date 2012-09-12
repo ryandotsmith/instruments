@@ -49,15 +49,22 @@ module Instruments
             else
               :info
             end
+            # request times
             Instruments.write({
               :level => level,
               :lib => "sinatra",
-              :action => "http-request",
-              :route => @instrumented_route,
+              :fn => @instrumented_route,
+              :measure => true,
               :elapsed => t,
               :method => env["REQUEST_METHOD"].downcase,
               :status => response.status
             }.merge(params))
+
+            # status counter
+            Instruments.write({
+              :at => "web-#{response.status}",
+              :measure => true
+            })
           end
         end
       end
@@ -90,11 +97,12 @@ module Instruments
           else
             :info
           end
-          Instruments.write(:level => level, :action => action(sql), :elapsed => t, :sql => sql)
+          Instruments.write(:level => level, :mesaure => true,
+                            :fn => action(sql), :elapsed => t, :sql => sql)
         end
 
         def log_exception(e, sql)
-          Instruments.write(:error => true, :exception => e.class, :sql => sql)
+          Instruments.write(:at => 'sequel-exception', :measure => true, :exception => e.class, :sql => sql)
         end
 
         def action(sql)
@@ -102,24 +110,6 @@ module Instruments
         end
       end
     end
-  end
-
-  if defined?(::Excon)
-    module ::Excon
-      module Instrumentation
-        def self.instrument(name, params={}, &blk)
-          t0 = Time.now
-          res = yield if block_given?
-          t1 = Time.now
-          Instruments.write(
-            :lib => "excon",
-            :action => "http-request",
-            :elapsed => Integer((t1-t0)*1000)
-          )
-        end
-      end
-    end
-    Excon.defaults[:instrumentor] = ::Excon::Instrumentation
   end
 
 end
