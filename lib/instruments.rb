@@ -37,7 +37,7 @@ module Instruments
           end
           after do
             #cleanup route name
-            instrumented_route = @instrumented_route.
+            instrumented_route = @instrumented_route.to_s.
                                     gsub("/","-").                #remove slash from path
                                     gsub(/[^A-Za-z0-9.:\-_]/, ''). #only keep subset of chars
                                     gsub(/^-/,'')
